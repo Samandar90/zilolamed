@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { doctors } from "@/lib/data/doctors";
 
+export const dynamic = "force-static";
+
 const base = "https://zilolamedical.uz";
 
 export default function sitemap(): MetadataRoute.Sitemap {
