@@ -1,0 +1,124 @@
+import type { LucideIcon } from "lucide-react";
+import {
+  Stethoscope,
+  HeartPulse,
+  Brain,
+  Venus,
+  Baby,
+  Activity,
+  Wind,
+  ShieldPlus,
+  Salad,
+  Waves,
+  Scan,
+  FlaskConical,
+} from "lucide-react";
+
+export type Specialty = {
+  slug: string;
+  name: string;
+  short: string;
+  description: string;
+  icon: LucideIcon;
+};
+
+export const specialties: Specialty[] = [
+  {
+    slug: "terapiya",
+    name: "Терапия",
+    short: "Диагностика и лечение",
+    description:
+      "Первичный приём, обследование и ведение пациентов с широким кругом заболеваний. Терапевт координирует диагностику и направляет к профильным специалистам.",
+    icon: Stethoscope,
+  },
+  {
+    slug: "kardiologiya",
+    name: "Кардиология",
+    short: "Сердце и сосуды",
+    description:
+      "Диагностика и лечение гипертонии, аритмий и других заболеваний сердечно-сосудистой системы с ЭКГ, холтер-мониторингом и СМАД.",
+    icon: HeartPulse,
+  },
+  {
+    slug: "nevrologiya",
+    name: "Неврология",
+    short: "Нервная система",
+    description:
+      "Лечение головных болей, остеохондроза, неврозов и нарушений сна. Применяются рефлексо- и иглотерапия для взрослых и детей.",
+    icon: Brain,
+  },
+  {
+    slug: "ginekologiya",
+    name: "Гинекология",
+    short: "Женское здоровье",
+    description:
+      "Профилактические осмотры, кольпоскопия, лечение и малые вмешательства — бережный и конфиденциальный подход к здоровью женщины.",
+    icon: Venus,
+  },
+  {
+    slug: "pediatriya",
+    name: "Педиатрия",
+    short: "Здоровье детей",
+    description:
+      "Наблюдение детей с рождения, лечение частых ОРВИ, бронхитов и детской астмы, вакцинопрофилактика и детская неврология.",
+    icon: Baby,
+  },
+  {
+    slug: "endokrinologiya",
+    name: "Эндокринология",
+    short: "Обмен веществ",
+    description:
+      "Диагностика и лечение сахарного диабета, заболеваний щитовидной железы и гормональных нарушений с индивидуальными программами питания.",
+    icon: Activity,
+  },
+  {
+    slug: "pulmonologiya",
+    name: "Пульмонология",
+    short: "Органы дыхания",
+    description:
+      "Ведение пациентов с бронхитом, астмой и другими заболеваниями дыхательной системы у взрослых и детей.",
+    icon: Wind,
+  },
+  {
+    slug: "allergologiya",
+    name: "Аллергология",
+    short: "Аллергия и иммунитет",
+    description:
+      "Выявление причин аллергических реакций и подбор эффективной терапии для улучшения качества жизни.",
+    icon: ShieldPlus,
+  },
+  {
+    slug: "gastroenterologiya",
+    name: "Гастроэнтерология",
+    short: "Пищеварение",
+    description:
+      "Диагностика и лечение заболеваний желудочно-кишечного тракта, подбор лечебного питания.",
+    icon: Salad,
+  },
+  {
+    slug: "fizioterapiya",
+    name: "Физиотерапия",
+    short: "Восстановление",
+    description:
+      "Аппаратная физиотерапия, гирудотерапия, озонотерапия, ВЛОК и массаж для восстановления и профилактики.",
+    icon: Waves,
+  },
+  {
+    slug: "uzi",
+    name: "УЗ-диагностика",
+    short: "УЗИ органов и сосудов",
+    description:
+      "Ультразвуковые исследования органов брюшной полости, малого таза, щитовидной железы и сосудов на аппаратуре экспертного класса.",
+    icon: Scan,
+  },
+  {
+    slug: "laboratoriya",
+    name: "Лаборатория",
+    short: "Анализы",
+    description:
+      "Полный спектр лабораторных исследований крови и мочи, инфекционные тесты и биоимпедансный анализ тела.",
+    icon: FlaskConical,
+  },
+];
+
+export const getSpecialty = (slug: string) => specialties.find((s) => s.slug === slug);
