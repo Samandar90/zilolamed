@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
-// При сборке для GitHub Pages выставляется GITHUB_PAGES=true (см. workflow).
-const isPages = process.env.GITHUB_PAGES === "true";
-const repo = "zilolamed";
+// Базовый путь для GitHub Pages (проектный сайт): /zilolamed.
+// Локально переменная не задана → basePath пустой, сайт работает от корня.
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -10,10 +10,9 @@ const nextConfig: NextConfig = {
   output: "export", // статический экспорт (GitHub Pages)
   images: {
     unoptimized: true, // Pages не поддерживает оптимизатор изображений
-    formats: ["image/avif", "image/webp"],
   },
-  basePath: isPages ? `/${repo}` : undefined,
-  assetPrefix: isPages ? `/${repo}/` : undefined,
+  basePath: basePath || undefined,
+  assetPrefix: basePath ? `${basePath}/` : undefined,
   trailingSlash: true,
 };
 

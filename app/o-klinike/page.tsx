@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { company } from "@/lib/data/company";
 import { timeline } from "@/lib/data/content";
+import { asset } from "@/lib/asset";
 
 export const metadata: Metadata = {
   title: "О клинике",
@@ -37,7 +38,7 @@ export default function AboutPage() {
           <Reveal>
             <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] border border-line shadow-card sm:aspect-[21/9]">
               <Image
-                src="/img/clinic/clinic.jpg"
+                src={asset("/img/clinic/clinic.jpg")}
                 alt="Клиника Zilola Medical в Ташкенте"
                 fill
                 priority
@@ -163,7 +164,7 @@ export default function AboutPage() {
               <div className="relative mx-auto max-w-sm overflow-hidden rounded-[1.5rem] border border-line bg-white p-3 shadow-float">
                 <div className="relative aspect-[3/4] overflow-hidden rounded-xl">
                   <Image
-                    src="/img/clinic/license.png"
+                    src={asset("/img/clinic/license.png")}
                     alt="Лицензия клиники Zilola Medical"
                     fill
                     sizes="(max-width: 1024px) 100vw, 400px"

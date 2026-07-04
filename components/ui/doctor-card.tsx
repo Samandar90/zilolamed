@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Award, Baby } from "lucide-react";
 import type { Doctor } from "@/lib/data/doctors";
+import { asset } from "@/lib/asset";
 
 export function DoctorCard({ doctor, index = 0 }: { doctor: Doctor; index?: number }) {
   return (
@@ -20,7 +21,7 @@ export function DoctorCard({ doctor, index = 0 }: { doctor: Doctor; index?: numb
       >
         <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-b from-mist-100 to-mist-200">
           <Image
-            src={doctor.image}
+            src={asset(doctor.image)}
             alt={doctor.name}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"

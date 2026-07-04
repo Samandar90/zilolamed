@@ -9,6 +9,7 @@ import { serviceGroups, priceList } from "@/lib/data/services";
 import { specialties } from "@/lib/data/specialties";
 import { checkups } from "@/lib/data/checkups";
 import { company } from "@/lib/data/company";
+import { asset } from "@/lib/asset";
 
 export const metadata: Metadata = {
   title: "Услуги и цены",
@@ -114,7 +115,7 @@ export default function ServicesPage() {
                 <div className="group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-card transition-all duration-500 hover:-translate-y-1.5 hover:shadow-float">
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <Image
-                      src={c.image}
+                      src={asset(c.image)}
                       alt={c.name}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"

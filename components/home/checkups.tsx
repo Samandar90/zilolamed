@@ -5,6 +5,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { StaggerGroup, StaggerItem } from "@/components/ui/reveal";
 import { Button } from "@/components/ui/button";
 import { checkups } from "@/lib/data/checkups";
+import { asset } from "@/lib/asset";
 
 export function Checkups() {
   return (
@@ -36,7 +37,7 @@ export function Checkups() {
               >
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <Image
-                    src={c.image}
+                    src={asset(c.image)}
                     alt={c.name}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"

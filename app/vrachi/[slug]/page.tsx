@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { doctors, getDoctor } from "@/lib/data/doctors";
 import { company } from "@/lib/data/company";
+import { asset } from "@/lib/asset";
 import { Aurora } from "@/components/ui/aurora";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
@@ -73,7 +74,7 @@ export default async function DoctorPage({ params }: { params: Promise<{ slug: s
               <div className="overflow-hidden rounded-[2rem] border border-line bg-white shadow-card">
                 <div className="relative aspect-[4/5] bg-gradient-to-b from-mist-100 to-mist-200">
                   <Image
-                    src={doctor.image}
+                    src={asset(doctor.image)}
                     alt={doctor.name}
                     fill
                     priority
