@@ -10,7 +10,7 @@ export const company = {
   stats: {
     doctors: 6,
     years: 14,
-    specialties: 12,
+    specialties: 11,
     patients: 20000,
   },
   address: {

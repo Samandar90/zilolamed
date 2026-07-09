@@ -7,7 +7,6 @@ import {
   Baby,
   Activity,
   Wind,
-  ShieldPlus,
   Salad,
   Waves,
   Scan,
@@ -78,14 +77,6 @@ export const specialties: Specialty[] = [
     description:
       "Ведение пациентов с бронхитом, астмой и другими заболеваниями дыхательной системы у взрослых и детей.",
     icon: Wind,
-  },
-  {
-    slug: "allergologiya",
-    name: "Аллергология",
-    short: "Аллергия и иммунитет",
-    description:
-      "Выявление причин аллергических реакций и подбор эффективной терапии для улучшения качества жизни.",
-    icon: ShieldPlus,
   },
   {
     slug: "gastroenterologiya",

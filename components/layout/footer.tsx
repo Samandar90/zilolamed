@@ -16,7 +16,7 @@ export function Footer() {
       <div className="container-x relative py-20">
         <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div className="max-w-sm">
-            <Logo variant="light" />
+            <Logo className="h-10" />
             <p className="mt-6 text-[0.95rem] leading-relaxed text-white/55">
               {company.shortDescription}
             </p>

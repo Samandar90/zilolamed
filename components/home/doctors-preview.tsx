@@ -5,6 +5,11 @@ import { Button } from "@/components/ui/button";
 import { DoctorCard } from "@/components/ui/doctor-card";
 import { doctors } from "@/lib/data/doctors";
 
+const featuredSlugs = ["kadirova-shahista", "malikova-alfira", "usmanova-gulchehra", "ismailova-komila"];
+const featuredDoctors = featuredSlugs
+  .map((slug) => doctors.find((d) => d.slug === slug))
+  .filter((d): d is (typeof doctors)[number] => Boolean(d));
+
 export function DoctorsPreview() {
   return (
     <section className="py-24 lg:py-32">
@@ -15,7 +20,7 @@ export function DoctorsPreview() {
           description="Приём ведут специалисты со стажем до 46 лет, включая врачей высшей категории. Каждый пациент получает внимание и индивидуальный подход."
         />
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {doctors.slice(0, 4).map((d, i) => (
+          {featuredDoctors.map((d, i) => (
             <DoctorCard key={d.slug} doctor={d} index={i} />
           ))}
         </div>
