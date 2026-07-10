@@ -7,7 +7,6 @@ import { company } from "@/lib/data/company";
 import { useBooking } from "@/components/providers/booking-provider";
 
 const channels = [
-  { label: "WhatsApp", href: company.social.whatsapp, icon: Phone, color: "bg-[#25D366]" },
   { label: "Telegram", href: company.social.telegram, icon: Send, color: "bg-[#229ED9]" },
   { label: "Позвонить", href: company.phones[0].href, icon: Phone, color: "bg-ink-900" },
 ];

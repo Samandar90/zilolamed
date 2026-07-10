@@ -35,15 +35,6 @@ export function Footer() {
                 <Send className="h-5 w-5" />
               </a>
               <a
-                href={company.social.whatsapp}
-                target="_blank"
-                rel="noreferrer"
-                className="grid h-11 w-11 place-items-center rounded-xl border border-white/10 text-white/70 transition-colors hover:border-teal-400/50 hover:text-teal-300"
-                aria-label="WhatsApp"
-              >
-                <Phone className="h-5 w-5" />
-              </a>
-              <a
                 href={company.social.facebook}
                 target="_blank"
                 rel="noreferrer"

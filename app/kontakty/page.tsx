@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mail, MapPin, Phone, Send, Clock, MessageCircle } from "lucide-react";
+import { Mail, MapPin, Phone, Send, Clock } from "lucide-react";
 import { PageHeader } from "@/components/ui/page-header";
 import { Reveal } from "@/components/ui/reveal";
 import { AppointmentForm } from "@/components/contact/appointment-form";
@@ -8,7 +8,7 @@ import { company } from "@/lib/data/company";
 export const metadata: Metadata = {
   title: "Контакты и запись",
   description:
-    "Записаться на приём в клинику Zilola Medical в Ташкенте: телефоны регистратуры, адрес (ул. Таллимаржон 43, Мирабадский район), Telegram, WhatsApp, часы работы и карта.",
+    "Записаться на приём в клинику Zilola Medical в Ташкенте: телефоны регистратуры, адрес (ул. Таллимаржон 43, Мирабадский район), Telegram, часы работы и карта.",
 };
 
 export default function ContactPage() {
@@ -18,7 +18,7 @@ export default function ContactPage() {
         breadcrumb={[{ label: "Контакты" }]}
         eyebrow="Запись и контакты"
         title={<>Запишитесь на <span className="text-aurora">приём.</span></>}
-        description="Оставьте заявку — администратор перезвонит, подберёт врача и удобное время. Или свяжитесь с нами напрямую по телефону, в Telegram или WhatsApp."
+        description="Оставьте заявку — администратор перезвонит, подберёт врача и удобное время. Или свяжитесь с нами напрямую по телефону или в Telegram."
       />
 
       <section className="py-16 lg:py-24">
@@ -59,36 +59,20 @@ export default function ContactPage() {
                 <p className="text-sm text-muted">{company.hours.weekend}</p>
               </InfoCard>
 
-              <div className="grid grid-cols-2 gap-4">
-                <a
-                  href={company.social.telegram}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group flex items-center gap-3 rounded-2xl border border-line bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-[#229ED9]/40"
-                >
-                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-[#229ED9] text-white">
-                    <Send className="h-5 w-5" />
-                  </span>
-                  <span>
-                    <span className="block text-sm font-semibold text-ink-900">Telegram</span>
-                    <span className="text-xs text-muted">{company.social.telegramHandle}</span>
-                  </span>
-                </a>
-                <a
-                  href={company.social.whatsapp}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group flex items-center gap-3 rounded-2xl border border-line bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-[#25D366]/40"
-                >
-                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-[#25D366] text-white">
-                    <MessageCircle className="h-5 w-5" />
-                  </span>
-                  <span>
-                    <span className="block text-sm font-semibold text-ink-900">WhatsApp</span>
-                    <span className="text-xs text-muted">Написать нам</span>
-                  </span>
-                </a>
-              </div>
+              <a
+                href={company.social.telegram}
+                target="_blank"
+                rel="noreferrer"
+                className="group flex items-center gap-3 rounded-2xl border border-line bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-[#229ED9]/40"
+              >
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-[#229ED9] text-white">
+                  <Send className="h-5 w-5" />
+                </span>
+                <span>
+                  <span className="block text-sm font-semibold text-ink-900">Telegram</span>
+                  <span className="text-xs text-muted">{company.social.telegramHandle}</span>
+                </span>
+              </a>
             </div>
           </Reveal>
         </div>
