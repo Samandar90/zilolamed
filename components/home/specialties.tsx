@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, CalendarCheck } from "lucide-react";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { StaggerGroup, StaggerItem } from "@/components/ui/reveal";
+import { BookButton } from "@/components/ui/book-button";
 import { specialties } from "@/lib/data/specialties";
 
 export function Specialties() {
@@ -28,10 +29,8 @@ export function Specialties() {
         <StaggerGroup className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {specialties.map((c) => (
             <StaggerItem key={c.slug}>
-              <Link
-                href="/uslugi"
-                className="group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border border-line bg-white p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-teal-500/30 hover:shadow-float"
-              >
+              <div className="group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border border-line bg-white p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-teal-500/30 hover:shadow-float">
+                <Link href="/uslugi" aria-label={`Подробнее: ${c.name}`} className="absolute inset-0 z-10" />
                 <div className="pointer-events-none absolute inset-x-0 -bottom-24 h-40 bg-aurora opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-15" />
                 <div className="relative">
                   <span className="grid h-14 w-14 place-items-center rounded-2xl bg-ink-900 text-white transition-transform duration-500 group-hover:scale-110">
@@ -40,11 +39,21 @@ export function Specialties() {
                   <h3 className="mt-6 text-lg font-semibold text-ink-900">{c.name}</h3>
                   <p className="mt-1.5 text-sm text-muted">{c.short}</p>
                 </div>
-                <div className="relative mt-8 flex items-center gap-1.5 text-sm font-medium text-teal-600">
-                  Подробнее
-                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <div className="relative z-20 mt-8 flex items-center justify-between gap-2">
+                  <Link href="/uslugi" className="inline-flex items-center gap-1.5 text-sm font-medium text-teal-600">
+                    Подробнее
+                    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </Link>
+                  <BookButton
+                    prefill={{ specialty: c.name, source: "specialties" }}
+                    size="sm"
+                    variant="outline"
+                    aria-label={`Записаться: ${c.name}`}
+                  >
+                    <CalendarCheck className="h-4 w-4" />
+                  </BookButton>
                 </div>
-              </Link>
+              </div>
             </StaggerItem>
           ))}
         </StaggerGroup>

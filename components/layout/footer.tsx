@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { Mail, MapPin, Phone, Send, Clock, ArrowUpRight } from "lucide-react";
+import { Mail, MapPin, Phone, Send, Clock, ArrowUpRight, CalendarCheck } from "lucide-react";
 import { company, navLinks } from "@/lib/data/company";
 import { specialties } from "@/lib/data/specialties";
 import { Logo } from "@/components/ui/logo";
+import { BookButton } from "@/components/ui/book-button";
 
 export function Footer() {
   return (
@@ -20,6 +21,9 @@ export function Footer() {
             <p className="mt-6 text-[0.95rem] leading-relaxed text-white/55">
               {company.shortDescription}
             </p>
+            <BookButton prefill={{ source: "footer" }} variant="dark" className="mt-6">
+              <CalendarCheck className="h-4 w-4" /> Записаться на приём
+            </BookButton>
             <div className="mt-6 flex gap-3">
               <a
                 href={company.social.telegram}

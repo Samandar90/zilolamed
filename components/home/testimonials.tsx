@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Quote, ArrowLeft, ArrowRight, Star } from "lucide-react";
+import { Quote, ArrowLeft, ArrowRight, Star, CalendarCheck } from "lucide-react";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { BookButton } from "@/components/ui/book-button";
 import { testimonials } from "@/lib/data/content";
 
 export function Testimonials() {
@@ -78,6 +79,12 @@ export function Testimonials() {
             >
               <ArrowRight className="h-4 w-4" />
             </button>
+          </div>
+
+          <div className="mt-12 flex justify-center">
+            <BookButton prefill={{ source: "testimonials" }} variant="outline" size="lg">
+              <CalendarCheck className="h-5 w-5" /> Тоже хочу записаться
+            </BookButton>
           </div>
         </div>
       </div>

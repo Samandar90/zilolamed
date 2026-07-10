@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ShieldCheck, Sparkles, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BookButton } from "@/components/ui/book-button";
 import { company } from "@/lib/data/company";
 
 export function Hero() {
@@ -79,10 +80,10 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.62 }}
             className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
           >
-            <Button href="/kontakty" size="lg" variant="dark">
+            <BookButton prefill={{ source: "hero" }} size="lg" variant="dark">
               Записаться на приём
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
-            </Button>
+            </BookButton>
             <Button href="/vrachi" size="lg" variant="outline">
               Наши врачи
             </Button>

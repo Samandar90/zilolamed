@@ -4,7 +4,7 @@ import { Target, Eye, HeartHandshake, ArrowRight, BadgeCheck } from "lucide-reac
 import { PageHeader } from "@/components/ui/page-header";
 import { Reveal } from "@/components/ui/reveal";
 import { Counter } from "@/components/ui/counter";
-import { Button } from "@/components/ui/button";
+import { BookButton } from "@/components/ui/book-button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { company } from "@/lib/data/company";
 import { timeline } from "@/lib/data/content";
@@ -127,9 +127,9 @@ export default function AboutPage() {
             ))}
           </div>
           <div className="mt-14 flex justify-center">
-            <Button href="/kontakty" variant="dark" size="lg">
+            <BookButton prefill={{ source: "o-klinike" }} variant="dark" size="lg">
               Записаться на приём <ArrowRight className="h-5 w-5" />
-            </Button>
+            </BookButton>
           </div>
         </div>
       </section>

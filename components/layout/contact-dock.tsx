@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { MessageCircle, Phone, Send, X } from "lucide-react";
+import { CalendarCheck, MessageCircle, Phone, Send, X } from "lucide-react";
 import { company } from "@/lib/data/company";
+import { useBooking } from "@/components/providers/booking-provider";
 
 const channels = [
   { label: "WhatsApp", href: company.social.whatsapp, icon: Phone, color: "bg-[#25D366]" },
@@ -13,30 +14,54 @@ const channels = [
 
 export function ContactDock() {
   const [open, setOpen] = useState(false);
+  const { open: openBooking } = useBooking();
+
   return (
     <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3">
       <AnimatePresence>
-        {open &&
-          channels.map((c, i) => (
-            <motion.a
-              key={c.label}
-              href={c.href}
-              target={c.href.startsWith("http") ? "_blank" : undefined}
-              rel="noreferrer"
+        {open && (
+          <>
+            {channels.map((c, i) => (
+              <motion.a
+                key={c.label}
+                href={c.href}
+                target={c.href.startsWith("http") ? "_blank" : undefined}
+                rel="noreferrer"
+                initial={{ opacity: 0, y: 12, scale: 0.85 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 12, scale: 0.85 }}
+                transition={{ delay: i * 0.05, duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-center gap-3"
+              >
+                <span className="rounded-full bg-white px-3 py-1.5 text-sm font-medium text-ink-900 shadow-card">
+                  {c.label}
+                </span>
+                <span className={`grid h-12 w-12 place-items-center rounded-full text-white shadow-float ${c.color}`}>
+                  <c.icon className="h-5 w-5" />
+                </span>
+              </motion.a>
+            ))}
+            <motion.button
+              key="book"
+              onClick={() => {
+                setOpen(false);
+                openBooking({ source: "contact-dock" });
+              }}
               initial={{ opacity: 0, y: 12, scale: 0.85 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 12, scale: 0.85 }}
-              transition={{ delay: i * 0.05, duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ delay: channels.length * 0.05, duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
               className="flex items-center gap-3"
             >
-              <span className="rounded-full bg-white px-3 py-1.5 text-sm font-medium text-ink-900 shadow-card">
-                {c.label}
+              <span className="rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-ink-900 shadow-card">
+                Записаться на приём
               </span>
-              <span className={`grid h-12 w-12 place-items-center rounded-full text-white shadow-float ${c.color}`}>
-                <c.icon className="h-5 w-5" />
+              <span className="btn-sheen relative grid h-12 w-12 place-items-center rounded-full bg-aurora text-white shadow-[0_10px_30px_-10px_rgba(6,182,212,0.7)]">
+                <CalendarCheck className="h-5 w-5" />
               </span>
-            </motion.a>
-          ))}
+            </motion.button>
+          </>
+        )}
       </AnimatePresence>
 
       <button

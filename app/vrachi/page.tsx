@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/ui/page-header";
 import { DoctorCard } from "@/components/ui/doctor-card";
-import { Button } from "@/components/ui/button";
+import { BookButton } from "@/components/ui/book-button";
 import { doctors } from "@/lib/data/doctors";
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ export default function DoctorsPage() {
         title={<>Врачи, которым <span className="text-aurora">доверяют.</span></>}
         description="Команда лечебно-диагностического центра Zilola Medical — опытные специалисты со стажем до 46 лет, включая врачей высшей категории. Выберите врача и запишитесь на удобное время."
       >
-        <Button href="/kontakty" variant="dark">Записаться на приём</Button>
+        <BookButton prefill={{ source: "vrachi-header" }} variant="dark">Записаться на приём</BookButton>
       </PageHeader>
 
       <section className="py-16 lg:py-24">

@@ -18,6 +18,7 @@ import { company } from "@/lib/data/company";
 import { asset } from "@/lib/asset";
 import { Aurora } from "@/components/ui/aurora";
 import { Button } from "@/components/ui/button";
+import { BookButton } from "@/components/ui/book-button";
 import { Reveal } from "@/components/ui/reveal";
 import { DoctorCard } from "@/components/ui/doctor-card";
 
@@ -126,9 +127,13 @@ export default async function DoctorPage({ params }: { params: Promise<{ slug: s
                 <p className="mt-6 text-lg leading-relaxed text-muted">{doctor.bio}</p>
 
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <Button href="/kontakty" variant="dark" size="lg">
+                  <BookButton
+                    prefill={{ doctor: { name: doctor.name, primary: doctor.primary }, source: "doctor-hero" }}
+                    variant="dark"
+                    size="lg"
+                  >
                     <CalendarCheck className="h-5 w-5" /> Записаться на приём
-                  </Button>
+                  </BookButton>
                   <Button href={company.phones[0].href} variant="outline" size="lg">
                     <Phone className="h-5 w-5" /> {company.phones[0].value}
                   </Button>
@@ -170,9 +175,13 @@ export default async function DoctorPage({ params }: { params: Promise<{ slug: s
               </span>
               <p className="mt-4 font-display text-xl font-semibold">Записаться к специалисту</p>
               <p className="mt-2 text-sm text-white/55">Администратор подберёт удобное время и ответит на вопросы.</p>
-              <Button href="/kontakty" variant="dark" className="mt-5 w-full">
+              <BookButton
+                prefill={{ doctor: { name: doctor.name, primary: doctor.primary }, source: "doctor-sidebar" }}
+                variant="dark"
+                className="mt-5 w-full"
+              >
                 Оставить заявку
-              </Button>
+              </BookButton>
               <div className="mt-4 space-y-2 border-t border-white/10 pt-4 text-sm">
                 {company.phones.map((p) => (
                   <a key={p.href} href={p.href} className="flex items-center gap-2 text-white/60 hover:text-white">

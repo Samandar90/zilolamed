@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, ArrowRight, Check } from "lucide-react";
+import { ArrowUpRight, ArrowRight, Check, CalendarCheck } from "lucide-react";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { StaggerGroup, StaggerItem } from "@/components/ui/reveal";
 import { Button } from "@/components/ui/button";
+import { BookButton } from "@/components/ui/book-button";
 import { checkups } from "@/lib/data/checkups";
 import { asset } from "@/lib/asset";
 
@@ -31,10 +32,8 @@ export function Checkups() {
         <StaggerGroup className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {checkups.slice(0, 6).map((c) => (
             <StaggerItem key={c.slug}>
-              <Link
-                href={`/uslugi#checkup`}
-                className="group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-card transition-all duration-500 hover:-translate-y-1.5 hover:border-teal-500/30 hover:shadow-float"
-              >
+              <div className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-card transition-all duration-500 hover:-translate-y-1.5 hover:border-teal-500/30 hover:shadow-float">
+                <Link href="/uslugi#checkup" aria-label={`Подробнее: ${c.name}`} className="absolute inset-0 z-10" />
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <Image
                     src={asset(c.image)}
@@ -63,12 +62,18 @@ export function Checkups() {
                       </li>
                     ))}
                   </ul>
-                  <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-medium text-teal-600">
-                    Записаться
-                    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </span>
+                  <div className="relative z-20 mt-auto pt-5">
+                    <BookButton
+                      prefill={{ note: `Программа check-up: ${c.name}`, source: "checkups" }}
+                      size="sm"
+                      variant="primary"
+                      className="w-full"
+                    >
+                      <CalendarCheck className="h-4 w-4" /> Записаться
+                    </BookButton>
+                  </div>
                 </div>
-              </Link>
+              </div>
             </StaggerItem>
           ))}
         </StaggerGroup>

@@ -1,6 +1,7 @@
 import { ArrowRight, Phone, Send } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { Button } from "@/components/ui/button";
+import { BookButton } from "@/components/ui/book-button";
 import { company } from "@/lib/data/company";
 
 export function CTA() {
@@ -32,10 +33,10 @@ export function CTA() {
                 и удобное время. Приём возможен уже в день обращения.
               </p>
               <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <Button href="/kontakty" size="lg" variant="dark">
+                <BookButton prefill={{ source: "cta" }} size="lg" variant="dark">
                   Записаться на приём
                   <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
-                </Button>
+                </BookButton>
                 <Button
                   href={company.social.telegram}
                   size="lg"

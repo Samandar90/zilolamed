@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
 import { navLinks, company } from "@/lib/data/company";
 import { Logo } from "@/components/ui/logo";
-import { Button } from "@/components/ui/button";
+import { BookButton } from "@/components/ui/book-button";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
@@ -78,9 +78,9 @@ export function Navbar() {
                 <Phone className="h-4 w-4" />
                 {company.phones[0].value}
               </a>
-              <Button href="/kontakty" size="sm" variant="primary">
+              <BookButton prefill={{ source: "navbar" }} size="sm" variant="primary">
                 Записаться
-              </Button>
+              </BookButton>
             </div>
 
             <button
@@ -128,9 +128,9 @@ export function Navbar() {
                   </motion.div>
                 ))}
                 <div className="mt-4 flex flex-col gap-3 px-1">
-                  <Button href="/kontakty" size="lg" variant="dark" className="w-full">
+                  <BookButton prefill={{ source: "navbar-mobile" }} size="lg" variant="dark" className="w-full">
                     Записаться на приём
-                  </Button>
+                  </BookButton>
                   <a href={company.phones[0].href} className="text-center text-sm text-muted">
                     {company.phones[0].value}
                   </a>

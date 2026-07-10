@@ -4,6 +4,7 @@ import { Check, ArrowRight, Phone } from "lucide-react";
 import { PageHeader } from "@/components/ui/page-header";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/ui/reveal";
 import { Button } from "@/components/ui/button";
+import { BookButton } from "@/components/ui/book-button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { serviceGroups, priceList } from "@/lib/data/services";
 import { specialties } from "@/lib/data/specialties";
@@ -27,7 +28,7 @@ export default function ServicesPage() {
         description="От первичной консультации до диагностики, лечения и восстановления — всё необходимое под одной крышей, на современном оборудовании и без лишних очередей."
       >
         <div className="flex flex-wrap gap-3">
-          <Button href="/kontakty" variant="dark">Записаться на приём</Button>
+          <BookButton prefill={{ source: "uslugi-header" }} variant="dark">Записаться на приём</BookButton>
           <Button href={company.phones[0].href} variant="outline">
             <Phone className="h-4 w-4" /> Узнать цены
           </Button>
@@ -41,12 +42,20 @@ export default function ServicesPage() {
           <StaggerGroup className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {specialties.map((s) => (
               <StaggerItem key={s.slug}>
-                <div className="group h-full rounded-3xl border border-line bg-white p-6 transition-all duration-500 hover:-translate-y-1 hover:shadow-card">
+                <div className="group flex h-full flex-col rounded-3xl border border-line bg-white p-6 transition-all duration-500 hover:-translate-y-1 hover:shadow-card">
                   <span className="grid h-12 w-12 place-items-center rounded-2xl bg-teal-500/10 text-teal-600 ring-1 ring-inset ring-teal-500/20 transition-colors group-hover:bg-teal-500 group-hover:text-white">
                     <s.icon className="h-5 w-5" strokeWidth={1.7} />
                   </span>
                   <h3 className="mt-5 font-semibold text-ink-900">{s.name}</h3>
                   <p className="mt-1.5 text-sm leading-relaxed text-muted">{s.description}</p>
+                  <BookButton
+                    prefill={{ specialty: s.name, source: "uslugi-directions" }}
+                    variant="ghost"
+                    size="sm"
+                    className="mt-4 self-start !px-0 text-teal-600 hover:!bg-transparent hover:text-teal-700"
+                  >
+                    Записаться →
+                  </BookButton>
                 </div>
               </StaggerItem>
             ))}
@@ -94,9 +103,9 @@ export default function ServicesPage() {
             ))}
           </div>
           <div className="mt-14 flex justify-center">
-            <Button href="/kontakty" variant="dark" size="lg">
+            <BookButton prefill={{ source: "uslugi-groups" }} variant="dark" size="lg">
               Записаться на приём <ArrowRight className="h-5 w-5" />
-            </Button>
+            </BookButton>
           </div>
         </div>
       </section>
@@ -139,9 +148,13 @@ export default function ServicesPage() {
                         </li>
                       ))}
                     </ul>
-                    <Button href="/kontakty" variant="outline" className="mt-6 w-full">
+                    <BookButton
+                      prefill={{ note: `Программа check-up: ${c.name}`, source: "uslugi-checkup" }}
+                      variant="outline"
+                      className="mt-6 w-full"
+                    >
                       Записаться
-                    </Button>
+                    </BookButton>
                   </div>
                 </div>
               </StaggerItem>
@@ -163,13 +176,26 @@ export default function ServicesPage() {
               {priceList.map((p) => (
                 <li key={p.name} className="flex items-center justify-between gap-4 px-6 py-4">
                   <span className="text-ink-800">{p.name}</span>
-                  <span className="whitespace-nowrap font-semibold text-ink-900">{p.price}</span>
+                  <div className="flex items-center gap-4">
+                    <span className="whitespace-nowrap font-semibold text-ink-900">{p.price}</span>
+                    <BookButton
+                      prefill={{ note: p.name, source: "uslugi-pricelist" }}
+                      variant="ghost"
+                      size="sm"
+                      className="!px-0 text-teal-600 hover:!bg-transparent hover:text-teal-700"
+                    >
+                      Записаться
+                    </BookButton>
+                  </div>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="mt-10 flex justify-center">
-            <Button href={company.phones[0].href} variant="dark" size="lg">
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
+            <BookButton prefill={{ source: "uslugi-pricelist-cta" }} variant="dark" size="lg">
+              Записаться на приём
+            </BookButton>
+            <Button href={company.phones[0].href} variant="outline" size="lg">
               <Phone className="h-5 w-5" /> Узнать точную цену
             </Button>
           </div>

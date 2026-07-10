@@ -3,9 +3,9 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, Loader2, CalendarCheck } from "lucide-react";
+import { Check, Loader2, CalendarCheck, UserRound } from "lucide-react";
 import { specialties } from "@/lib/data/specialties";
 import { cn } from "@/lib/utils";
 
@@ -19,22 +19,45 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
-export function AppointmentForm() {
+export function AppointmentForm({
+  defaultSpecialty,
+  defaultMessage,
+  doctor,
+  onSuccess,
+}: {
+  defaultSpecialty?: string;
+  defaultMessage?: string;
+  doctor?: { name: string; primary: string };
+  onSuccess?: () => void;
+}) {
   const [sent, setSent] = useState(false);
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isSubmitting },
-  } = useForm<FormValues>({ resolver: zodResolver(schema) });
+  } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      specialty: doctor?.primary ?? defaultSpecialty ?? "",
+      message: defaultMessage ?? "",
+    },
+  });
+
+  useEffect(() => {
+    setValue("specialty", doctor?.primary ?? defaultSpecialty ?? "");
+    setValue("message", defaultMessage ?? "");
+  }, [doctor, defaultSpecialty, defaultMessage, setValue]);
 
   async function onSubmit(data: FormValues) {
     // Демо-отправка — подключите к API / Telegram-боту клиники.
     await new Promise((r) => setTimeout(r, 900));
     // eslint-disable-next-line no-console
-    console.info("Заявка на приём:", data);
+    console.info("Заявка на приём:", doctor ? { ...data, doctor: doctor.name } : data);
     setSent(true);
-    reset();
+    reset({ specialty: doctor?.primary ?? defaultSpecialty ?? "", message: "" });
+    onSuccess?.();
     setTimeout(() => setSent(false), 6000);
   }
 
@@ -62,6 +85,18 @@ export function AppointmentForm() {
       </AnimatePresence>
 
       <form onSubmit={handleSubmit(onSubmit)} className="grid gap-5">
+        {doctor && (
+          <div className="flex items-center gap-3 rounded-2xl border border-teal-500/20 bg-teal-500/5 px-4 py-3">
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-aurora text-white">
+              <UserRound className="h-5 w-5" />
+            </span>
+            <div className="min-w-0">
+              <p className="truncate text-sm font-semibold text-ink-900">{doctor.name}</p>
+              <p className="text-xs text-muted">{doctor.primary}</p>
+            </div>
+          </div>
+        )}
+
         <div className="grid gap-5 sm:grid-cols-2">
           <Field label="Ваше имя" error={errors.name?.message}>
             <input {...register("name")} className={inputCls(!!errors.name)} placeholder="Как к вам обращаться" />
@@ -71,15 +106,23 @@ export function AppointmentForm() {
           </Field>
         </div>
         <div className="grid gap-5 sm:grid-cols-2">
-          <Field label="Направление / специалист" error={errors.specialty?.message}>
-            <select {...register("specialty")} className={cn(inputCls(!!errors.specialty), "appearance-none")} defaultValue="">
-              <option value="" disabled>Выберите направление…</option>
-              {specialties.map((s) => (
-                <option key={s.slug} value={s.name}>{s.name}</option>
-              ))}
-              <option value="Другое">Другое / не знаю</option>
-            </select>
-          </Field>
+          {doctor ? (
+            <input type="hidden" {...register("specialty")} />
+          ) : (
+            <Field label="Направление / специалист" error={errors.specialty?.message}>
+              <select
+                {...register("specialty")}
+                className={cn(inputCls(!!errors.specialty), "appearance-none")}
+                defaultValue={defaultSpecialty ?? ""}
+              >
+                <option value="" disabled>Выберите направление…</option>
+                {specialties.map((s) => (
+                  <option key={s.slug} value={s.name}>{s.name}</option>
+                ))}
+                <option value="Другое">Другое / не знаю</option>
+              </select>
+            </Field>
+          )}
           <Field label="Желаемая дата" error={errors.date?.message}>
             <input {...register("date")} type="date" className={inputCls(!!errors.date)} />
           </Field>
