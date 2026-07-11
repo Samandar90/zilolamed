@@ -5,9 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, Loader2, CalendarCheck, UserRound } from "lucide-react";
+import { Check, Loader2, CalendarCheck, UserRound, AlertTriangle } from "lucide-react";
 import { specialties } from "@/lib/data/specialties";
 import { cn } from "@/lib/utils";
+import { company } from "@/lib/data/company";
+import { BOOKING_API_URL } from "@/lib/booking-api";
 
 const schema = z.object({
   name: z.string().min(2, "Укажите ваше имя"),
@@ -23,14 +25,17 @@ export function AppointmentForm({
   defaultSpecialty,
   defaultMessage,
   doctor,
+  source,
   onSuccess,
 }: {
   defaultSpecialty?: string;
   defaultMessage?: string;
   doctor?: { name: string; primary: string };
+  source?: string;
   onSuccess?: () => void;
 }) {
   const [sent, setSent] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -51,10 +56,23 @@ export function AppointmentForm({
   }, [doctor, defaultSpecialty, defaultMessage, setValue]);
 
   async function onSubmit(data: FormValues) {
-    // Демо-отправка — подключите к API / Telegram-боту клиники.
-    await new Promise((r) => setTimeout(r, 900));
-    // eslint-disable-next-line no-console
-    console.info("Заявка на приём:", doctor ? { ...data, doctor: doctor.name } : data);
+    setSubmitError(null);
+    try {
+      const res = await fetch(BOOKING_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, doctor: doctor?.name, source }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        throw new Error(body?.error ?? "Не удалось отправить заявку");
+      }
+    } catch {
+      setSubmitError(
+        `Не получилось отправить заявку онлайн. Пожалуйста, позвоните нам: ${company.phones[0].value}`,
+      );
+      return;
+    }
     setSent(true);
     reset({ specialty: doctor?.primary ?? defaultSpecialty ?? "", message: "" });
     onSuccess?.();
@@ -135,6 +153,13 @@ export function AppointmentForm({
             placeholder="Коротко опишите, что вас беспокоит"
           />
         </Field>
+
+        {submitError && (
+          <div className="flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2.5 text-sm text-red-600">
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
+            <span>{submitError}</span>
+          </div>
+        )}
 
         <button
           type="submit"

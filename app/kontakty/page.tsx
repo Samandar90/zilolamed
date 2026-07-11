@@ -28,7 +28,7 @@ export default function ContactPage() {
               <h2 className="font-display text-2xl font-semibold text-ink-900">Заявка на приём</h2>
               <p className="mt-2 text-muted">Заполните форму — мы свяжемся с вами в ближайшее время.</p>
               <div className="mt-8">
-                <AppointmentForm />
+                <AppointmentForm source="kontakty-page" />
               </div>
             </div>
           </Reveal>

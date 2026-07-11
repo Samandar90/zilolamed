@@ -86,6 +86,7 @@ export function BookingModal({
                 defaultSpecialty={prefill?.specialty}
                 defaultMessage={prefill?.note}
                 doctor={prefill?.doctor}
+                source={prefill?.source}
                 onSuccess={() => setTimeout(onClose, 1800)}
               />
 
