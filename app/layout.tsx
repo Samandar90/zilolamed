@@ -3,6 +3,7 @@ import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { BookingProvider } from "@/components/providers/booking-provider";
+import { Analytics } from "@/components/providers/analytics";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { ContactDock } from "@/components/layout/contact-dock";
@@ -103,6 +104,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(clinicSchema) }}
         />
+        <Analytics />
         <BookingProvider>
           <SmoothScroll>
             <Navbar />

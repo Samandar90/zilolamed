@@ -10,6 +10,7 @@ import { specialties } from "@/lib/data/specialties";
 import { cn } from "@/lib/utils";
 import { company } from "@/lib/data/company";
 import { BOOKING_API_URL } from "@/lib/booking-api";
+import { getUtmSource, trackLead } from "@/lib/tracking";
 
 const schema = z.object({
   name: z.string().min(2, "Укажите ваше имя"),
@@ -61,7 +62,11 @@ export function AppointmentForm({
       const res = await fetch(BOOKING_API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, doctor: doctor?.name, source }),
+        body: JSON.stringify({
+          ...data,
+          doctor: doctor?.name,
+          source: [source, getUtmSource()].filter(Boolean).join(" | ") || undefined,
+        }),
       });
       if (!res.ok) {
         const body = await res.json().catch(() => null);
@@ -73,6 +78,7 @@ export function AppointmentForm({
       );
       return;
     }
+    trackLead();
     setSent(true);
     reset({ specialty: doctor?.primary ?? defaultSpecialty ?? "", message: "" });
     onSuccess?.();
