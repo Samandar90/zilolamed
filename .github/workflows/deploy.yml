@@ -32,6 +32,8 @@ jobs:
 
       - name: Build static site
         run: npm run build
+        env:
+          NEXT_PUBLIC_GOOGLE_ADS_ID: "AW-18298450614"
 
       - name: Disable Jekyll (serve _next folder)
         run: touch out/.nojekyll

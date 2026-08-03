@@ -8,8 +8,14 @@ const UTM_PARAMS = ["utm_source", "utm_medium", "utm_campaign", "utm_content"] a
 declare global {
   interface Window {
     fbq?: (...args: unknown[]) => void;
+    gtag?: (...args: unknown[]) => void;
+    dataLayer?: unknown[];
   }
 }
+
+const GOOGLE_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
+// Ярлык действия-конверсии «Отправка формы» из кабинета Google Ads (часть после слэша).
+const GOOGLE_ADS_CONVERSION_LABEL = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL;
 
 export function captureUtm() {
   if (typeof window === "undefined") return;
@@ -31,9 +37,15 @@ export function getUtmSource(): string | undefined {
   }
 }
 
-/** Сообщает Meta Pixel о заявке (событие Lead) — по нему оптимизируется реклама. */
+/** Сообщает рекламным системам о заявке — по этому событию оптимизируется реклама. */
 export function trackLead() {
-  if (typeof window !== "undefined" && typeof window.fbq === "function") {
+  if (typeof window === "undefined") return;
+  if (typeof window.fbq === "function") {
     window.fbq("track", "Lead");
+  }
+  if (typeof window.gtag === "function" && GOOGLE_ADS_ID && GOOGLE_ADS_CONVERSION_LABEL) {
+    window.gtag("event", "conversion", {
+      send_to: `${GOOGLE_ADS_ID}/${GOOGLE_ADS_CONVERSION_LABEL}`,
+    });
   }
 }
