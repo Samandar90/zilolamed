@@ -23,6 +23,10 @@ const manrope = Manrope({
 
 const siteUrl = "https://zilolamedical.uz";
 
+// Тег Google Ads вшивается прямо в HTML: проверка тега в кабинете Google
+// читает исходный код страницы и не видит скрипты, добавленные на клиенте.
+const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -104,6 +108,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(clinicSchema) }}
         />
+        {googleAdsId && (
+          <>
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAdsId}`} />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${googleAdsId}');`,
+              }}
+            />
+          </>
+        )}
         <Analytics />
         <BookingProvider>
           <SmoothScroll>
