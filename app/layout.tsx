@@ -23,9 +23,11 @@ const manrope = Manrope({
 
 const siteUrl = "https://zilolamedical.uz";
 
-// Тег Google Ads вшивается прямо в HTML: проверка тега в кабинете Google
-// читает исходный код страницы и не видит скрипты, добавленные на клиенте.
+// Теги Google (Ads + Analytics) вшиваются прямо в HTML: проверка тега в кабинете
+// Google читает исходный код страницы и не видит скрипты, добавленные на клиенте.
 const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
+const ga4Id = process.env.NEXT_PUBLIC_GA4_ID;
+const googleTagIds = [googleAdsId, ga4Id].filter((id): id is string => Boolean(id));
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -108,12 +110,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(clinicSchema) }}
         />
-        {googleAdsId && (
+        {googleTagIds.length > 0 && (
           <>
-            <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAdsId}`} />
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleTagIds[0]}`} />
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${googleAdsId}');`,
+                __html:
+                  `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());` +
+                  googleTagIds.map((id) => `gtag('config','${id}');`).join(""),
               }}
             />
           </>

@@ -34,6 +34,7 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_GOOGLE_ADS_ID: "AW-18298450614"
+          NEXT_PUBLIC_GA4_ID: "G-RSJ2EJV3VY"
 
       - name: Disable Jekyll (serve _next folder)
         run: touch out/.nojekyll
