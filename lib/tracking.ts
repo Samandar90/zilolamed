@@ -46,6 +46,8 @@ export function trackLead() {
   if (typeof window.gtag === "function" && GOOGLE_ADS_ID && GOOGLE_ADS_CONVERSION_LABEL) {
     window.gtag("event", "conversion", {
       send_to: `${GOOGLE_ADS_ID}/${GOOGLE_ADS_CONVERSION_LABEL}`,
+      value: 1.0,
+      currency: "USD",
     });
   }
 }
