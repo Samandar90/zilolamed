@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
-import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { BookingProvider } from "@/components/providers/booking-provider";
 import { Analytics } from "@/components/providers/analytics";
 import { Navbar } from "@/components/layout/navbar";
@@ -124,12 +123,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
         <Analytics />
         <BookingProvider>
-          <SmoothScroll>
             <Navbar />
             <main>{children}</main>
             <Footer />
             <ContactDock />
-          </SmoothScroll>
         </BookingProvider>
       </body>
     </html>

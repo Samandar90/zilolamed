@@ -1,7 +1,12 @@
 "use client";
 
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
-import { BookingModal } from "@/components/contact/booking-modal";
+import dynamic from "next/dynamic";
+
+const BookingModal = dynamic(
+  () => import("@/components/contact/booking-modal").then((module) => module.BookingModal),
+  { ssr: false, loading: () => <div role="status" className="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 rounded-xl bg-white px-6 py-3 shadow-float">Загружаем форму записи…</div> },
+);
 
 export type BookingPrefill = {
   specialty?: string;
@@ -24,10 +29,12 @@ export function useBooking() {
 }
 
 export function BookingProvider({ children }: { children: ReactNode }) {
+  const [hasOpened, setHasOpened] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [prefill, setPrefill] = useState<BookingPrefill | undefined>(undefined);
 
   const open = useCallback((p?: BookingPrefill) => {
+    setHasOpened(true);
     setPrefill(p);
     setIsOpen(true);
   }, []);
@@ -39,7 +46,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
   return (
     <BookingContext.Provider value={value}>
       {children}
-      <BookingModal isOpen={isOpen} onClose={close} prefill={prefill} />
+      {hasOpened && <BookingModal isOpen={isOpen} onClose={close} prefill={prefill} />}
     </BookingContext.Provider>
   );
 }
