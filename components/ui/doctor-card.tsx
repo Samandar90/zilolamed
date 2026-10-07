@@ -1,20 +1,13 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { ArrowUpRight, Award, Baby, CalendarCheck } from "lucide-react";
 import type { Doctor } from "@/lib/data/doctors";
 import { asset } from "@/lib/asset";
 import { BookButton } from "@/components/ui/book-button";
 
-export function DoctorCard({ doctor, index = 0 }: { doctor: Doctor; index?: number }) {
+export function DoctorCard({ doctor }: { doctor: Doctor; index?: number }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.6, delay: (index % 3) * 0.08, ease: [0.16, 1, 0.3, 1] }}
+    <div
       className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-card transition-all duration-500 hover:-translate-y-1.5 hover:border-teal-500/30 hover:shadow-float"
     >
       <Link
@@ -77,6 +70,6 @@ export function DoctorCard({ doctor, index = 0 }: { doctor: Doctor; index?: numb
           </span>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

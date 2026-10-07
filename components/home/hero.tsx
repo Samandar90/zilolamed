@@ -1,21 +1,11 @@
-"use client";
-
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ShieldCheck, Sparkles, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BookButton } from "@/components/ui/book-button";
 import { company } from "@/lib/data/company";
 
 export function Hero() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 140]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
-
   return (
-    <section ref={ref} className="relative overflow-hidden pb-24 pt-36 lg:pb-32 lg:pt-44">
+    <section className="relative overflow-hidden pb-24 pt-36 lg:pb-32 lg:pt-44">
       <div className="pointer-events-none absolute inset-0 grid-lines mask-fade-b opacity-[0.5]" />
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
@@ -29,55 +19,40 @@ export function Hero() {
       </div>
 
       <div className="container-x relative">
-        <motion.div style={{ y, opacity }} className="mx-auto max-w-4xl text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        <div className="mx-auto max-w-4xl text-center">
+          <div
             className="mx-auto inline-flex items-center gap-2 rounded-full border border-line bg-white/70 px-4 py-1.5 text-sm font-medium text-ink-800 shadow-sm backdrop-blur"
           >
             <Sparkles className="h-4 w-4 text-teal-500" />
             <span>Частная клиника в Ташкенте · с {company.founded} года</span>
-          </motion.div>
+          </div>
 
           <h1 className="mt-7 text-balance text-5xl leading-[1.03] sm:text-6xl lg:text-7xl">
             {"Точная диагностика.".split(" ").map((w, i) => (
-              <motion.span
+              <span
                 key={i}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.1 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 className="inline-block"
               >
                 {w}&nbsp;
-              </motion.span>
+              </span>
             ))}
             <br className="hidden sm:block" />
-            <motion.span
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.34, ease: [0.16, 1, 0.3, 1] }}
+            <span
               className="text-aurora inline-block"
             >
               Внимательная забота.
-            </motion.span>
+            </span>
           </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
+          <p
             className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl"
           >
             Лечебно-диагностический центр Zilola Medical объединяет опытных врачей и
             оборудование мировых брендов, чтобы поставить точный диагноз и составить
             индивидуальный план лечения для каждого пациента.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.62 }}
+          <div
             className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
           >
             <BookButton prefill={{ source: "hero" }} size="lg" variant="dark">
@@ -87,28 +62,21 @@ export function Hero() {
             <Button href="/vrachi" size="lg" variant="outline">
               Наши врачи
             </Button>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.8 }}
+          <div
             className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted"
           >
             <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-teal-500" /> Врачи высшей категории</span>
             <span className="inline-flex items-center gap-2"><Clock className="h-4 w-4 text-teal-500" /> Приём Пн–Сб · 08:00–17:00</span>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
-        <motion.div
-          style={{ scale }}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        <div
           className="relative mx-auto mt-16 max-w-5xl"
         >
           <HeroConsole />
-        </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -156,22 +124,18 @@ function HeroConsole() {
         </div>
       </div>
 
-      <motion.div
-        animate={{ y: [0, -10, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+      <div
         className="absolute -left-4 top-16 hidden rounded-2xl border border-line bg-white/90 p-3 shadow-float backdrop-blur sm:block lg:-left-10"
       >
         <p className="text-[0.65rem] uppercase tracking-wide text-muted">Стаж врачей</p>
         <p className="font-display text-sm font-semibold text-ink-900">до 46 лет</p>
-      </motion.div>
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      </div>
+      <div
         className="absolute -right-4 bottom-16 hidden rounded-2xl border border-line bg-white/90 p-3 shadow-float backdrop-blur sm:block lg:-right-10"
       >
         <p className="text-[0.65rem] uppercase tracking-wide text-muted">Приём</p>
         <p className="font-display text-sm font-semibold text-ink-900">в день обращения</p>
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -204,16 +168,16 @@ function Vital({
         </p>
       </div>
       <svg viewBox="0 0 120 40" className="mt-2 h-10 w-full" preserveAspectRatio="none">
-        <motion.path
+        <path
           d={paths[wave]}
           fill="none"
           stroke={color}
           strokeWidth="1.6"
           strokeLinecap="round"
           strokeLinejoin="round"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: 2, delay: 0.8, ease: "easeInOut" }}
+
+
+
         />
       </svg>
     </div>
